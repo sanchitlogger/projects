@@ -33,7 +33,31 @@ class Category:
         return False
     
     def __str__(self):
+
         title = self.category.center(30, "*") 
-        return title + "\n"+"\n".join([f"{i['description'].ljust(23)}{format(i['amount'], '.2f').rjust(7)}" for i in self.ledger]) + "\n" + f"Total: {format(self.balance, '.2f')}"
+        li = []
+        ch = 0
+        sp = 0
+        sp2 =" "
+        for d in self.ledger:
+            for i in d:
+                if type(d[i])!=int and type(d[i])!=float:
+                    if len(i)+len(d[i])+3>(len(title)):
+                        for j in d[i]:
+                            ch+=1
+                            if j ==" ":
+                                sp+=1
+                                if len(d[i][:ch])<((len(title))-len(i)-3):
+                                    continue
+                                else:
+                                    li.append(f"{i} : {d[i][:ch]}")
+                                    li.append(f"{sp2*len(i)}   {d[i][ch:]}")
+                                    break
+                                                  
+                    else:
+                        li.append(f"{i} : {d[i]}")
+                else:
+                    li.append(f"{i} : {d[i]}")
+        return title + "\n"+"\n".join([f"{i}" for i in li ]) + "\n" + f"Total: {format(self.balance, '.2f')}"
     
     
