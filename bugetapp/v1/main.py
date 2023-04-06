@@ -1,4 +1,4 @@
-import modules.budget as budget
+import budget
 
 food = budget.Category("Food")
 food.deposit(1000, "initial deposit")
