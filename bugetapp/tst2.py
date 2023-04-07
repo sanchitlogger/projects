@@ -1,2 +1,4 @@
-a = "Hello THis is sancht"
-print(a[5:])
+import numpy as np 
+
+print(np.sign(5.5054))
+print(abs(-5.4))
