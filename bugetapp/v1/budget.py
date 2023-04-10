@@ -3,12 +3,11 @@ import numpy as np
 
 #classes
 class Category:
-    print("Welcome to the Budget App")
     def __init__(self, category):
         self.category = category
         self.ledger = []
         self.balance = 0
-    def check_fund(self, amount):
+    def check_funds(self, amount):
         if self.balance >= amount:
             return True
         return False
@@ -19,13 +18,13 @@ class Category:
         self.balance += amount
 
     def withdraw(self, amount:float, description = ""):
-        if self.check_fund(amount):
+        if self.check_funds(amount):
             self.ledger.append({"amount": -amount, "description": description})
             self.balance -= amount
             return True
         return False
     def transfer(self, amount, cat):
-        if self.check_fund(amount):
+        if self.check_funds(amount):
             self.withdraw(amount, f"Transfer to {cat.category}")
             cat.deposit(amount, f"Transfer from {self.category}")
             return True
@@ -84,16 +83,54 @@ def create_spend_chart(list):
         s2+=1
         if i != 10:
             ln = len(str((i+s2)*10))
-            print(f"{s*(ln-len(str(i*10)))}{i*10}|")
+            print(f"{s*(ln-len(str(i*10)))}{i*10}|",end=" ")
         else:
-            print(f"{i*10}|")
-        for j in range(len(a)):
-            if i == 10:
-                print(f"\n{a[j]['category'][:3]:>3}", end=" ")
+            print(f"{i*10}|",end=" ")
+        s3=0
+        for j in a:
+            s3+=1
+            per = (j["spent"]/total)*100 
+            if (per <i*10):
+                if s3 == len(a):
+                    print("")
+                else:    
+                    print("",end="")
             else:
-                if (a[j]["spent"]/total)*100 >= i*10:
-                    print("o  ", end=" ")
+                if s3 == len(a):
+                    print("o ")
+                else:    
+                    print("o ",end=" ")
+    print("    -"+"-"*len(a)*3)  
+    print('    ',end="")    
+    def letter_sep(dict:dict,key:str):
+        """
+
+        Desc:If dictionary(or dictionaries) in a list has a key whose value is required to be sperated in letters.
+            Then this functon will seperate letters of value of particular key of all disctionaries in a list.
+        It will seperate value of that particular key of all dictionaries in a list.
+
+        Order:It will start with zero index and go with it for all values of that particular key of all dictionaries in a list.
+            Then it will go to first index and so on. 
+
+        Returns: list of letters.    
+        """
+        sp4 = 0  
+        li=[] # list of letters
+        ln = 0 # longest category name
+        for i in dict:
+            if ln<len(i[key]):
+                ln=len(i[key])   
+        while sp4<ln:
+            for l in dict:
+                if sp4<len(l[key]):
+                    li.append(l[key][sp4])
                 else:
-                    print("   ", end=" ")
-        
+                    continue
+            sp4+=1
+        return li
+    li=letter_sep(a,"category") # list of letters   
     
+                
+
+
+        
