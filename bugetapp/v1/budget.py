@@ -157,7 +157,11 @@ def create_spend_chart(lis: list):
             
         else:
             print(li[i],end="  ")
-            sp5+=1
-            if li3[sp5-1]==li2.count(sp5):
-                print("   ",end="")
+            if li3[sp5-1]==li2.count(sp5) and sp5!=len(li3) and (sp5+1) != len(li3) and li3[sp5]!=li2.count(sp5+1):
+                print(li[i],end="  ")
+            elif sp5==len(li3) and li3[sp5-1]==li2.count(sp5):
+                print("\n    ",end="   ")
+            #else:
+                
+            sp5+=1   
     return ""            
