@@ -137,31 +137,42 @@ def create_spend_chart(lis: list):
                     continue
             sp4 += 1
         return li
-    li = letter_sep(a, "category")  # list of letters
+    li = letter_sep(a, "category") 
+    #print(li) # list of letters
     li3=[]   # list of letters count 
     for i in a:
         li3.append(len(i["category"]))    
     li2=[]
     sp5=1 
-    sp6=0
+    sp6=0 #position inside list
     print(" ",end="")
-    for i in range(len(li)):
+    l=[]
+    for i in li:
+        sp6+=1
         li2.append(sp5)
         if sp5==len(a):
-            print(li[i],end="")
+            print(i,end="")
             print("\n    ",end=" ")
             sp5=1
             if li3[sp5-1]==li2.count(sp5):
                 print("   ",end="")
-            
+
             
         else:
-            print(li[i],end="  ")
-            if li3[sp5-1]==li2.count(sp5) and sp5!=len(li3) and (sp5+1) != len(li3) and li3[sp5]!=li2.count(sp5+1):
-                print(li[i],end="  ")
-            elif sp5==len(li3) and li3[sp5-1]==li2.count(sp5):
-                print("\n    ",end="   ")
-            #else:
+            if li3[sp5-1]!=li2.count(sp5) :
                 
+                if li3[sp5]==li2.count(sp5+1):
+                    print(f"   {i}",end="  ")
+                elif sp5==2 and li3[sp5]!=li2.count(sp5+1) and  li3[sp5+1]==li2.count(sp5+2) and li3[sp5-2]==li2.count(sp5-1):
+                    print("    f  \n")
+                    print(f"    {i}")
+                else:
+                    print(i,end="  ")
+                
+
+            else:
+                print(i,end="  ")
+          
             sp5+=1   
-    return ""            
+
+    return ""   
