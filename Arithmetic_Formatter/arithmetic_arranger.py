@@ -29,13 +29,11 @@ def arithmetic_arranger(problems:list,soln:bool=False):
                 if int(i) not in num:
                     print("Error: Numbers must only contain digits.")
                     solve = False
-                    break
                 break
             for i in val[2]:
                 if int(i) not in num:
                     print("Error: Numbers must only contain digits.") 
                     solve = False
-                    break
                 break
             if (len(val[0]) or len(val[2]) ) >4:
                 print("Error: Numbers cannot be more than four digits.")
