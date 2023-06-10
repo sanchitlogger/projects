@@ -1,26 +1,31 @@
 def arithmetic_arranger(problems:list,soln:bool=False):
     operators=['+','-']
-    exp = {}
-    expup=[]
-    expdown=[]
+    u_d = []
+    expr=[[],[],[]]
+    sol=[]
     num=[0,1,2,3,4,5,6,7,8,9]
     l_prob=len(problems)
     solve=True
     while solve ==True:
         if l_prob>5:
             print("Error: Too many problems.")
+            solve=False
             break
-        for i in range(l_prob):
-            exp[i]=problems[i].split()
-            if len(exp[i][0]) > len(exp[i][2]):
-                exp[i].append(len(exp[i][0]))
-            elif len(exp[i][0]) < len(exp[i][2]):
-                exp[i].append(-len(exp[i][2]))
-            else:
-                exp[i].append(0)
+        else:
+            for i in problems:
+                u_d.append(i.split())
+            for j in u_d:
+                l1=len(j[0])
+                l2=len(j[2])
+                if l1>l2:
+                    j.append([1,l1-l2,l1])
+                elif l1<l2:
+                    j.append([-1,l2-l1,l2])    
+                else:
+                    j.append([0,l1-l2,l1])    
 
                 
-        for val in exp.values():
+        for val in u_d:
             if val[1] not in operators:
                 print("Error: Operator must be '+' or '-'.")
                 solve = False
@@ -39,17 +44,43 @@ def arithmetic_arranger(problems:list,soln:bool=False):
                 print("Error: Numbers cannot be more than four digits.")
                 solve = False
                 break
+        if solve==False:
+            break
         #arrangement
-        for val in exp.items():
-            if val[3]==0:
-                expup.append(f"  {val[0]}    ")
+        for k in u_d:
+            if k[3][0]==-1:
+                expr[0].append(f'  {" "*k[3][1]}{k[0]}')
+                expr[1].append(f'{k[1]} {k[2]}')
+                expr[2].append('--'+'-'*k[3][2])
+            elif k[3][0]==1:
+                expr[0].append(f'  {k[0]}')
+                expr[1].append(f'{k[1]} {" "*k[3][1]}{k[2]}')
+                expr[2].append('--'+'-'*k[3][2])
             else:
-                if val[3]
-
-
-
+                expr[0].append(f'  {k[0]}')
+                expr[1].append(f'{k[1]} {k[2]}')
+                expr[2].append('--'+'-'*k[3][2])
+        for l in expr[0]:
+            print(l,end='    ')
+        print('\n',end='')    
+        for m in expr[1]:
+            print(m,end='    ')    
+        print('\n',end='')
+        for n in expr[2]:
+            print(n,end='    ') 
         solve=False
-
-arithmetic_arranger(["32 + 698", "38021 - 2", "45 + 43", "13 + 49"])
-
-    #return arranged_problems
+        if soln==True:
+            for o in u_d:
+                if o[1]=="+":
+                    sol.append(f'  {int(o[0])+int(o[2])}')
+                if o[1]=="-":
+                    if o[3][0]==-1:
+                        sol.append(f' {int(o[0])-int(o[2])}')
+                    elif o[3][0]==1:
+                        sol.append(f'  {int(o[0])-int(o[2])}')  
+                    else:      
+                        sol.append(f'  {int(o[0])-int(o[2])}')  
+            print('\n',end='')            
+            for p in sol:
+                print(p,end='    ')       
+arithmetic_arranger(["32 + 8", "1 - 3801", "9999 + 9999", "523 - 49","3801 - 2"], True)
