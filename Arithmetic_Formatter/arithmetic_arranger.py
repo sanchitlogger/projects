@@ -72,15 +72,19 @@ def arithmetic_arranger(problems:list,soln:bool=False):
         if soln==True:
             for o in u_d:
                 if o[1]=="+":
-                    sol.append(f'  {int(o[0])+int(o[2])}')
+                    c1=str(int(o[0])+int(o[2]) )
+                    if len(c1)>o[3][2]:
+                        sol.append(f' {int(o[0])+int(o[2])}    ')
+                    else:
+                        sol.append(f'  {int(o[0])+int(o[2])}    ')
                 if o[1]=="-":
                     if o[3][0]==-1:
-                        sol.append(f' {int(o[0])-int(o[2])}')
+                        sol.append(f' {int(o[0])-int(o[2])}    ')
                     elif o[3][0]==1:
-                        sol.append(f'  {int(o[0])-int(o[2])}')  
+                        sol.append(f'  {int(o[0])-int(o[2])}    ')  
                     else:      
-                        sol.append(f'  {int(o[0])-int(o[2])}')  
+                        sol.append(f'  {int(o[0])-int(o[2])}    ')  
             print('\n',end='')            
             for p in sol:
-                print(p,end='    ')       
+                print(p,end='')       
 arithmetic_arranger(["32 + 8", "1 - 3801", "9999 + 9999", "523 - 49","3801 - 2"], True)
